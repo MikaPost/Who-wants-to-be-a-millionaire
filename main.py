@@ -1,7 +1,7 @@
 """
 This file is for our new theme: Who wants to be a millionaire game
-Create by: Miqayel Postoyan
-Date: 28 jun
+Created by: Miqayel Postoyan
+Date: 28 June
 """
 from tkinter import *
 import random
@@ -16,7 +16,7 @@ def restart_game_window(game_over_window):
     Return: None
     """
     game_over_window.destroy()
-    start_main()
+    main()
 
 
 def show_game_result(root, user_name, won):
@@ -36,9 +36,11 @@ def show_game_result(root, user_name, won):
     over.config(bg="#101E39")
     over.resizable(width=False, height=False)
 
+    # Determine earnings based on the number of correct answers
     earnings_index = len(monetary_scale_labels) - coin[0] if 0 <= len(monetary_scale_labels) - coin[0] < len(monetary_scale_labels) else 0
     earnings = monetary_scale_labels[earnings_index]
 
+    # Display win or lose message
     if won:
         win_label = Label(over, text="Congratulations, You Win!", font=("Helvetica", 27), bg="#101E39", fg="white")
         win_label.place(x=100, y=150)
@@ -46,6 +48,7 @@ def show_game_result(root, user_name, won):
         lose_label = Label(over, text=f"You lose {earnings} $", font=("Helvetica", 30), bg="#101E39", fg="white")
         lose_label.place(x=120, y=150)
 
+    # Update and display the records
     with open("record.txt", "a") as f:
         f.write(f"{user_name} {earnings} $\n")
 
@@ -66,6 +69,7 @@ def show_game_result(root, user_name, won):
     records_text.insert("1.0", ''.join(top_10_records))
     records_text.config(state=DISABLED)
 
+    # Restart and exit buttons
     restart_button = Button(over, text="Restart", font=("Helvetica", 20), bg="#204A94", fg="white", command=lambda: restart_game_window(over))
     restart_button.place(x=200, y=300)
 
@@ -132,6 +136,7 @@ def display_question(root):
     questions_label.tag_add("center", "1.0", "end")
     questions_label.config(state=DISABLED)
 
+    # Display the answer buttons
     button1 = Button(main_frame, text=question[1], font=("Helvetica", 20), bg="#101E39", fg="white",
                      command=lambda: handle_next_question(root, question[1], question[5], coin))
     button1.place(relx=0.1, rely=0.5)
@@ -175,6 +180,7 @@ def display_monetary_scale(root):
     main_frame = Frame(root, bg="#204A94", highlightcolor="#4D5057")
     main_frame.place(relx=0.75, y=0, relwidth=0.25, relheight=1)
 
+    # Display the monetary scale labels
     for index, amount in enumerate(monetary_scale_labels):
         label = Label(main_frame, text=f"{len(monetary_scale_labels) - index}.     {amount}", bg="#204A94", fg="#B8C4BD", font=("Helvetica", 14))
         label.pack(anchor='w', padx=30, pady=10)
@@ -207,6 +213,7 @@ def start_game(main_menu):
     display_monetary_scale(game_window)
     display_question(game_window)
 
+    # Handle window close event to show game result
     game_window.protocol("WM_DELETE_WINDOW", lambda: show_game_result(game_window, user_name, won=False))
 
     game_window.mainloop()
@@ -232,6 +239,7 @@ def display_main_menu():
     name_entry_field = Entry(main_menu, bg="#FFFFFF", width=41, highlightthickness=5, highlightcolor="#8CA4C2")
     name_entry_field.place(relx=0.3, rely=0.45)
 
+    # Play game button
     play_button = Button(main_menu, text="Play game", bg="#99B2DA", height=1, width=12, font=("Helvetica", 15),
                          command=lambda: start_game(main_menu))
     play_button.place(x=300, y=270)
@@ -253,12 +261,10 @@ def load_questions_from_file():
     return questions_list
 
 
-def start_main():
+def main():
     """
-    Function: start_main
-    Brief: Starts the main function to initialize the game.
-    Params: None
-    Return: None
+    Function: main
+    Brief: Entry point of the program.
     """
     global questions_list
     questions_list = load_questions_from_file()
@@ -268,8 +274,4 @@ def start_main():
 
 
 if __name__ == "__main__":
-    """
-    Function: main
-    Brief: Entry point of the program.
-    """
-    start_main()
+    main()

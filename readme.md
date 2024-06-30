@@ -13,6 +13,7 @@ This Python application simulates a "Who Wants to Be a Millionaire" game, where 
 ## Files
 - **main.py**: Contains the main code for the game.
 - **a.txt**: File containing questions and their respective answers.
+- **record.txt**: File containing record.
 
 ## Setup and Usage
 1. Ensure you have Python installed.
@@ -24,5 +25,4 @@ This Python application simulates a "Who Wants to Be a Millionaire" game, where 
 - **Created by**: Miqayel Postoyan
 - **Date**: 28 jun
 
-## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
